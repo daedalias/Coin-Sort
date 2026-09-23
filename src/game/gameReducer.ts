@@ -1,4 +1,5 @@
 import type { GameState } from "./GameState"
+import type { Coin } from "./Coin"
 
 export type GameAction =
     | { type: "DEAL" }
@@ -13,7 +14,7 @@ function lowestCoinOnBoard(
     const values =
         state.tubes.flatMap(
             tube => tube.coins.map(
-                coin => coin.value
+                (coin: Coin) => coin.value
             )
         )
 
@@ -31,7 +32,7 @@ function highestCoinOnBoard(
     const values =
         state.tubes.flatMap(
             tube => tube.coins.map(
-                coin => coin.value
+                (coin: Coin) => coin.value
             )
         )
 
@@ -100,18 +101,37 @@ export function gameReducer(
 
     switch (action.type) {
 
-        case "DEAL":
+case "DEAL": {
 
-            console.log(
-                "Deal Value:",
-                randomDealValue(state)
-            )
+    const nextState = {
+        ...state,
 
-            return {
-                ...state,
-                dealCount:
-                    state.dealCount + 1
+        tubes: [...state.tubes],
+
+        dealCount:
+            state.dealCount + 1
+    }
+
+    const value =
+        randomDealValue(state)
+
+    nextState.tubes[0] = {
+
+        ...nextState.tubes[0],
+
+        coins: [
+
+            ...nextState.tubes[0].coins,
+
+            {
+                id: crypto.randomUUID(),
+                value
             }
+        ]
+    }
+
+    return nextState
+}
 
         case "TAP_TUBE":
 

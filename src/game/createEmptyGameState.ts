@@ -4,7 +4,13 @@ export function createEmptyGameState(): GameState {
 
     return {
 
-        tubes: [],
+        tubes: Array.from(
+            { length: 20 },
+            (_, index) => ({
+                id: `tube-${index}`,
+                coins: []
+            })
+        ),
 
         gold: 0,
 

@@ -3,7 +3,7 @@ import "./App.css"
 
 import { gameReducer } from "./game/gameReducer"
 import { createEmptyGameState } from "./game/createEmptyGameState"
-
+import { TubeView } from "./components/TubeView"
 function App() {
 
     const [state, dispatch] = useReducer(
@@ -29,8 +29,31 @@ function App() {
             <h1>Coin Sort</h1>
 
             <p>
-                Deals: {state.dealCount}
-            </p>
+    Deals: {state.dealCount}
+</p>
+
+<div
+    style={{
+        display: "grid",
+        gridTemplateColumns:
+            "repeat(5, 1fr)",
+        gap: "12px"
+    }}
+>
+
+    {state.tubes.map(
+        (tube, index) => (
+
+            <TubeView
+                key={tube.id}
+                index={index}
+                coinCount={
+                    tube.coins.length
+                }
+            />
+        )
+    )}
+</div>
 
             <button
                 onClick={() =>
