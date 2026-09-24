@@ -61,19 +61,41 @@ function randomDealValue(
     const highest =
         highestCoinOnBoard(state)
 
+    const upperBound =
+        Math.max(
+            lowest,
+            highest - 1
+        )
+
     if (
-        highest <= lowest
+        Math.random() < 0.7
     ) {
 
-        return lowest
+        const focusedUpper =
+            Math.min(
+                upperBound,
+                lowest + 2
+            )
+
+        return (
+            Math.floor(
+                Math.random() *
+                (
+                    focusedUpper -
+                    lowest +
+                    1
+                )
+            ) + lowest
+        )
     }
 
     return (
         Math.floor(
             Math.random() *
             (
-                highest -
-                lowest
+                upperBound -
+                lowest +
+                1
             )
         ) + lowest
     )
@@ -162,42 +184,110 @@ case "DEAL": {
         tubeIndex++
     ) {
 
-        const value =
-    Math.random() < 0.5
-        ? 1
-        : 2
+        const requested =
+    Math.floor(
+        Math.random() * 3
+    ) + 4
 
-        const groupSize =
-            Math.floor(
-                Math.random() * 3
-            ) + 1
+const availableSpace =
+    10 -
+    nextState.tubes[tubeIndex].coins.length
 
-        const availableSpace =
-            10 -
-            nextState.tubes[tubeIndex].coins.length
+const amount =
+    Math.min(
+        requested,
+        availableSpace
+    )
 
-        const actualGroupSize =
-            Math.min(
-                groupSize,
-                availableSpace
-            )
+if (
+    amount <= 0
+) {
+    continue
+}
 
-        if (
-            actualGroupSize <= 0
-        ) {
-            continue
-        }
+const generatedCoins = []
 
-        nextState.tubes[tubeIndex].coins.push(
+if (
+    Math.random() < 0.7 &&
+    state.currentCheckpoint <
+        highestCoinOnBoard(state)
+) {
 
-            ...Array.from(
-                { length: actualGroupSize },
-                () => ({
-                    id: crypto.randomUUID(),
-                    value
-                })
+    const primaryValue =
+        randomDealValue(state)
+
+    let secondaryValue =
+        randomDealValue(state)
+
+    while (
+        secondaryValue ===
+        primaryValue
+    ) {
+
+        secondaryValue =
+            randomDealValue(state)
+    }
+
+    const primaryCount =
+        Math.max(
+            1,
+            amount -
+            (
+                Math.floor(
+                    Math.random() * 2
+                ) + 1
             )
         )
+
+    const secondaryCount =
+        amount -
+        primaryCount
+
+    for (
+        let i = 0;
+        i < primaryCount;
+        i++
+    ) {
+
+        generatedCoins.push({
+            id: crypto.randomUUID(),
+            value: primaryValue
+        })
+    }
+
+    for (
+        let i = 0;
+        i < secondaryCount;
+        i++
+    ) {
+
+        generatedCoins.push({
+            id: crypto.randomUUID(),
+            value: secondaryValue
+        })
+    }
+
+} else {
+
+    const value =
+        randomDealValue(state)
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        generatedCoins.push({
+            id: crypto.randomUUID(),
+            value
+        })
+    }
+}
+
+nextState.tubes[tubeIndex].coins.push(
+    ...generatedCoins
+)
     }
 
     return nextState
