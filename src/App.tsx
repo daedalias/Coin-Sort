@@ -1,19 +1,27 @@
 import { useReducer } from "react"
 import "./App.css"
-
+import { PalettePreview } from "./components/PalettePreview"
 import { gameReducer } from "./game/gameReducer"
 import { createEmptyGameState } from "./game/createEmptyGameState"
 import { TubeView } from "./components/TubeView"
 import {
     pickupCount
 } from "./game/gameReducer"
+import { useEffect }
+    from "react"
+    import { saveGame }
+    from "./game/saveGame"
 function App() {
 
     const [state, dispatch] = useReducer(
         gameReducer,
         createEmptyGameState()
     )
+useEffect(() => {
 
+    saveGame(state)
+
+}, [state])
     return (
 
         <div
@@ -39,7 +47,9 @@ function App() {
 <p>
     XP: {state.xp}
 </p>
-
+<p>
+    Checkpoint: {state.currentCheckpoint}
+    </p>
 <p>
     Deals: {state.dealCount}
 </p>

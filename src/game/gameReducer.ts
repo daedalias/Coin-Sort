@@ -288,6 +288,57 @@ if (
 nextState.tubes[tubeIndex].coins.push(
     ...generatedCoins
 )
+const tube =
+    nextState.tubes[tubeIndex]
+
+if (
+    tube.coins.length === 10
+) {
+
+    const value =
+        tube.coins[0].value
+
+    const allMatch =
+        tube.coins.every(
+            coin =>
+                coin.value === value
+        )
+
+    if (allMatch) {
+
+        nextState.xp += value
+
+        nextState.lifetimeXp += value
+
+        while (
+            nextState.xp >=
+            xpNeededForLevel(
+                nextState.level
+            )
+        ) {
+
+            nextState.xp -=
+                xpNeededForLevel(
+                    nextState.level
+                )
+
+            nextState.level += 1
+        }
+
+        tube.coins = [
+
+            {
+                id: crypto.randomUUID(),
+                value: value + 1
+            },
+
+            {
+                id: crypto.randomUUID(),
+                value: value + 1
+            }
+        ]
+    }
+}
     }
 
     return nextState
@@ -459,7 +510,19 @@ while (
 
     nextState.level += 1
 }
+const checkpoint =
+    Math.floor(
+        (topValue + 1) / 10
+    ) * 10
 
+if (
+    checkpoint >
+    nextState.currentCheckpoint
+) {
+
+    nextState.currentCheckpoint =
+        checkpoint
+}
         destinationTube.coins =
             destinationTube.coins.filter(
                 coin =>

@@ -1,3 +1,5 @@
+import { coinColors } from "../game/CoinPalette"
+
 export interface CoinViewProps {
 
     value: number
@@ -8,7 +10,9 @@ export interface CoinViewProps {
 export function CoinView(
     props: CoinViewProps
 ) {
-
+const color =
+    coinColors[props.value]
+        ?? "#888888"
     return (
 
         <div
@@ -22,9 +26,9 @@ transition:
     "transform 0.15s ease",
                 width: "40px",
 
-                height: "16px",
+                height: "14px",
 
-                background: "#f97316",
+                background: color,
 
                 borderRadius: "999px",
 
@@ -38,8 +42,11 @@ transition:
 
                 fontSize: "12px",
 
-                fontWeight: "bold"
-                
+                fontWeight: "bold",
+               textShadow: `
+    0 0 2px rgba(0,0,0,0.9),
+    0 0 4px rgba(0,0,0,0.6)
+`,
             }}
         >
             {props.value}
