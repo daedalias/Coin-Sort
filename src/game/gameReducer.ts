@@ -13,13 +13,17 @@ function lowestCoinOnBoard(
 
     const values =
         state.tubes.flatMap(
-            tube => tube.coins.map(
-                (coin: Coin) => coin.value
-            )
+            tube =>
+                tube.coins.map(
+                    coin => coin.value
+                )
         )
 
-    if (values.length === 0) {
-        return state.currentCheckpoint
+    if (
+        values.length === 0
+    ) {
+
+        return 1
     }
 
     return Math.min(...values)
@@ -31,13 +35,17 @@ function highestCoinOnBoard(
 
     const values =
         state.tubes.flatMap(
-            tube => tube.coins.map(
-                (coin: Coin) => coin.value
-            )
+            tube =>
+                tube.coins.map(
+                    coin => coin.value
+                )
         )
 
-    if (values.length === 0) {
-        return state.currentCheckpoint
+    if (
+        values.length === 0
+    ) {
+
+        return 1
     }
 
     return Math.max(...values)
@@ -53,42 +61,19 @@ function randomDealValue(
     const highest =
         highestCoinOnBoard(state)
 
-    const upperBound =
-        Math.max(
-            lowest,
-            highest - 1
-        )
+    if (
+        highest <= lowest
+    ) {
 
-    const focusedChance =
-        Math.random() < 0.7
-
-    if (focusedChance) {
-
-        const focusedUpper =
-            Math.min(
-                upperBound,
-                lowest + 2
-            )
-
-        return (
-            Math.floor(
-                Math.random() *
-                (
-                    focusedUpper -
-                    lowest +
-                    1
-                )
-            ) + lowest
-        )
+        return lowest
     }
 
     return (
         Math.floor(
             Math.random() *
             (
-                upperBound -
-                lowest +
-                1
+                highest -
+                lowest
             )
         ) + lowest
     )
