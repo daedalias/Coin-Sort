@@ -4,6 +4,9 @@ import "./App.css"
 import { gameReducer } from "./game/gameReducer"
 import { createEmptyGameState } from "./game/createEmptyGameState"
 import { TubeView } from "./components/TubeView"
+import {
+    pickupCount
+} from "./game/gameReducer"
 function App() {
 
     const [state, dispatch] = useReducer(
@@ -44,13 +47,28 @@ function App() {
     {state.tubes.map(
         (tube, index) => (
 
-            <TubeView
-                key={tube.id}
-                index={index}
-                coinCount={
-                    tube.coins.length
-                }
-            />
+       <TubeView
+    key={tube.id}
+    index={index}
+    coins={tube.coins}
+    selected={
+        state.selectedTubeIndex === index
+    }
+    selectedCoinCount={
+    state.selectedTubeIndex === index
+        ? pickupCount(
+            state,
+            index
+        )
+        : 0
+}
+    onClick={() =>
+        dispatch({
+            type: "TAP_TUBE",
+            tubeIndex: index
+        })
+    }
+/>
         )
     )}
 </div>
