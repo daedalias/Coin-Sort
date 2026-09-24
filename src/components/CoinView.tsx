@@ -24,13 +24,12 @@ transform:
 
 transition:
     "transform 0.15s ease",
-                width: "40px",
-
-                height: "14px",
+               width: "52px",
+height: "14px",
 
                 background: color,
 
-                borderRadius: "999px",
+                borderRadius: "5px",
 
                 display: "flex",
 

@@ -510,18 +510,23 @@ while (
 
     nextState.level += 1
 }
-const checkpoint =
-    Math.floor(
-        (topValue + 1) / 10
-    ) * 10
-
 if (
-    checkpoint >
-    nextState.currentCheckpoint
+    topValue !== 99
 ) {
 
-    nextState.currentCheckpoint =
-        checkpoint
+    const checkpoint =
+        Math.floor(
+            (topValue + 1) / 10
+        ) * 10
+
+    if (
+        checkpoint >
+        nextState.currentCheckpoint
+    ) {
+
+        nextState.currentCheckpoint =
+            checkpoint
+    }
 }
         destinationTube.coins =
             destinationTube.coins.filter(
@@ -530,16 +535,74 @@ if (
                     topValue
             )
 
-        destinationTube.coins.unshift(
-            {
-                id: crypto.randomUUID(),
-                value: topValue + 1
-            },
-            {
-                id: crypto.randomUUID(),
-                value: topValue + 1
-            }
+        if (
+    topValue === 99
+) {
+if (
+    nextState.trophies.some(
+        trophy =>
+            trophy.trophyNumber ===
+            nextState.nextTrophyNumber
+    )
+) {
+
+    return nextState
+}
+nextState.trophies.push({
+
+        id:
+            crypto.randomUUID(),
+
+        trophyNumber:
+            nextState.nextTrophyNumber,
+
+        dateEarned:
+            new Date().toISOString(),
+
+     xpEarned:
+    nextState.lifetimeXp,
+
+        dealCount:
+            nextState.dealCount,
+
+        mergeCount:
+            nextState.mergeCount
+    })
+
+    nextState.nextTrophyNumber += 1
+
+    nextState.tubes =
+        Array.from(
+            { length: 20 },
+            (_, index) => ({
+                id: `tube-${index}`,
+                coins: []
+            })
         )
+
+    nextState.currentCheckpoint = 1
+
+    nextState.selectedTubeIndex = null
+
+    nextState.dealCount = 0
+
+    nextState.mergeCount = 0
+
+} else {
+
+    destinationTube.coins = [
+
+        {
+            id: crypto.randomUUID(),
+            value: topValue + 1
+        },
+
+        {
+            id: crypto.randomUUID(),
+            value: topValue + 1
+        }
+    ]
+}
     }
 
     return nextState

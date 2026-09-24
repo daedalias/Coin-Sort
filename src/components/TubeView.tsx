@@ -27,14 +27,8 @@ export function TubeView(
                 width: "60px",
                 height: "160px",
 
-           borderLeft: "4px solid white",
-
-borderRight: "4px solid white",
-
-borderBottom: "4px solid white",
-
-         borderBottomLeftRadius: "20px",
-borderBottomRightRadius: "20px",
+border: "3px solid #888",
+borderRadius: "0 0 10px 10px",
 
                 display: "flex",
 

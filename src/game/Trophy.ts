@@ -5,7 +5,7 @@ export interface Trophy {
 
     dateEarned: string
 
-    goldEarned: number
+  xpEarned: number
 
     dealCount: number
 

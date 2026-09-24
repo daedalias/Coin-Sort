@@ -46,33 +46,32 @@ if (saved) {
 }
 
   
-    return {
+return {
 
-        tubes: Array.from(
-            { length: 20 },
-            (_, index) => ({
-                id: `tube-${index}`,
-                coins: []
-            })
-        ),
+    tubes: Array.from(
+        { length: 20 },
+        (_, index) => ({
+            id: `tube-${index}`,
+            coins: []
+        })
+    ),
 
-        level: 1,
+    level: 1,
 
-xp: 0,
+    xp: 0,
 
-lifetimeXp: 0,
+    lifetimeXp: 0,
 
+    currentCheckpoint: 1,
 
-        currentCheckpoint: 1,
+    selectedTubeIndex: null,
 
-        selectedTubeIndex: null,
+    dealCount: 0,
 
-        dealCount: 0,
+    mergeCount: 0,
 
-        mergeCount: 0,
+    trophies: [],
 
-        trophies: [],
-
-        nextTrophyNumber: 1
-    }
+    nextTrophyNumber: 1
+}
 }
