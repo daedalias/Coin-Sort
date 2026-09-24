@@ -32,7 +32,17 @@ function App() {
             <h1>Coin Sort</h1>
 
             <p>
+    <p>
+    Lv. {state.level}
+</p>
+
+<p>
+    XP: {state.xp}
+</p>
+
+<p>
     Deals: {state.dealCount}
+</p>
 </p>
 
 <div

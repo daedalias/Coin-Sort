@@ -12,7 +12,12 @@ export function createEmptyGameState(): GameState {
             })
         ),
 
-        gold: 0,
+        level: 1,
+
+xp: 0,
+
+lifetimeXp: 0,
+
 
         currentCheckpoint: 1,
 

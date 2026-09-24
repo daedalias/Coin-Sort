@@ -135,6 +135,18 @@ export function pickupCount(
 
     return count
 }
+export function xpNeededForLevel(
+    level: number
+): number {
+
+    return Math.floor(
+        100 *
+        Math.pow(
+            1.06,
+            level - 1
+        )
+    )
+}
 export function gameReducer(
     state: GameState,
     action: GameAction
@@ -351,8 +363,27 @@ case "TAP_TUBE": {
     matchingCount += moveCount
 
     if (
+        
         matchingCount >= 10
     ) {
+nextState.xp += topValue
+
+nextState.lifetimeXp += topValue
+
+while (
+    nextState.xp >=
+    xpNeededForLevel(
+        nextState.level
+    )
+) {
+
+    nextState.xp -=
+        xpNeededForLevel(
+            nextState.level
+        )
+
+    nextState.level += 1
+}
 
         destinationTube.coins =
             destinationTube.coins.filter(

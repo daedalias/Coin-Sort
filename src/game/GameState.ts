@@ -1,11 +1,15 @@
-import type { Tube } from "../models/Tube"
-import type { Trophy } from "../models/Trophy"
+import type { Tube } from "./Tube"
+import type { Trophy } from "./Trophy"
 
 export interface GameState {
 
     tubes: Tube[]
 
-    gold: number
+    level: number
+
+xp: number
+
+lifetimeXp: number
 
     currentCheckpoint: number
 
