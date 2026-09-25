@@ -1,7 +1,6 @@
 import type { Coin } from "../game/Coin"
 
 import { CoinView } from "./CoinView"
-
 export interface TubeViewProps {
 
     coins: Coin[]
@@ -12,8 +11,13 @@ export interface TubeViewProps {
 
     selectedCoinCount: number
 
+    tubeWidth: number
+
+    tubeHeight: number
+
     onClick: () => void
 }
+
 
 export function TubeView(
     props: TubeViewProps
@@ -24,13 +28,11 @@ export function TubeView(
        <div
     onClick={props.onClick}
             style={{
-                width: "18vw",
-maxWidth: "72px",
-minWidth: "50px",
-                height: "160px",
+                width: `${props.tubeWidth}px`,
+height: `${props.tubeHeight}px`,
 
-border: "3px solid #888",
-borderRadius: "0 0 10px 10px",
+border: "6px solid #888",
+borderRadius: "0 0 24px 24px",
 
                 display: "flex",
 
@@ -46,18 +48,25 @@ borderRadius: "0 0 10px 10px",
        {props.coins.map(
     (coin, index) => (
 
-        <CoinView
-            key={coin.id}
-            value={coin.value}
-           lifted={
-    props.selected &&
-    index >= (
-        props.coins.length -
-        props.selectedCoinCount
-    )
-}
+       <CoinView
+    key={coin.id}
+    value={coin.value}
+    lifted={
+        props.selected &&
+        index >= (
+            props.coins.length -
+            props.selectedCoinCount
+        )
+    }
 
-        />
+    coinWidth={
+        props.tubeWidth * 0.92
+    }
+
+    coinHeight={
+        props.tubeWidth * 0.27
+    }
+/>
     )
 )}
 

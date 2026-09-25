@@ -5,7 +5,12 @@ export interface CoinViewProps {
     value: number
 
     lifted: boolean
+
+    coinWidth: number
+
+    coinHeight: number
 }
+
 
 export function CoinView(
     props: CoinViewProps
@@ -24,14 +29,14 @@ transform:
 
 transition:
     "transform 0.15s ease",
-               width: "100%",
-maxWidth: "60px",
+              width: `${props.coinWidth}px`,
 
-height: "14px",
+height: `${props.coinHeight}px`,
+
 
                 background: color,
 
-                borderRadius: "5px",
+                borderRadius: "8px",
 
                 display: "flex",
 
@@ -41,12 +46,12 @@ height: "14px",
 
                 color: "white",
 
-                fontSize: "12px",
+                fontSize: "24px",
 
                 fontWeight: "bold",
                textShadow: `
-    0 0 2px rgba(0,0,0,0.9),
-    0 0 4px rgba(0,0,0,0.6)
+    0 0 6px rgba(0,0,0,0.9),
+    0 0 8px rgba(0,0,0,0.6)
 `,
             }}
         >

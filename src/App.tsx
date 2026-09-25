@@ -29,25 +29,31 @@ useEffect(() => {
     saveGame(state)
 
 }, [state])
+const tubeWidth = 120
+
+const tubeHeight = 340
+
+
 return (
 
     <div
         style={{
-            height: "100vh",
+           minHeight: "100svh",
             background: "#2e2e2e",
             color: "white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "16px"
+           display: "flex",
+flexDirection: "column",
+justifyContent: "flex-start",
+alignItems: "center",
+paddingTop: "32px",
+            gap: "12px"
         }}
     >
 
  <div
     style={{
         width: "100%",
-        maxWidth: "700px",
+       
         display: "flex",
         justifyContent: "flex-end",
         marginBottom: "8px"
@@ -59,65 +65,74 @@ return (
 
 <div
     style={{
-        width: "95vw",
-maxWidth: "600px",
+      width: "100%",
+maxWidth: "700px",
 
     }}
 >
 
-    <div
-        style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: "8px"
-        }}
-    >
+   <div
+    style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        width: "100%",
+        marginBottom: "32px"
+    }}
+>
 
         <div
             style={{
+                fontSize: "40px",
+fontWeight: "bold",
                 textAlign: "right"
             }}
         >
 
-            <div>
-                Lv. {state.level}
-            </div>
-
-            <div>
-                XP: {state.xp} / {xpNeededForLevel(state.level)}
-            </div>
+           <div>
+    Lv. {state.level}
+    {" • "}
+    XP: {state.xp} / {xpNeededForLevel(state.level)}
+</div>
 
         </div>
 
     </div>
 
-    <div
-        style={{
-            display: "grid",
-            gridTemplateColumns:
-                "repeat(5, 1fr)",
-            gap: "12px"
-        }}
-    >
+   <div
+    style={{
+        display: "grid",
+        gridTemplateColumns:
+            "repeat(5, auto)",
+            justifyContent: "center",
+        gap: "16px"
+    }}
+>
 
     {state.tubes.map(
         (tube, index) => (
 
-       <TubeView
+ <TubeView
     key={tube.id}
     index={index}
     coins={tube.coins}
+
+    tubeWidth={tubeWidth}
+
+    tubeHeight={tubeHeight}
+
     selected={
         state.selectedTubeIndex === index
     }
+
     selectedCoinCount={
-    state.selectedTubeIndex === index
-        ? pickupCount(
-            state,
-            index
-        )
-        : 0
-}
+        state.selectedTubeIndex === index
+            ? pickupCount(
+                state,
+                index
+            )
+            : 0
+    }
+
     onClick={() =>
         dispatch({
             type: "TAP_TUBE",
@@ -142,7 +157,7 @@ maxWidth: "600px",
 maxWidth: "600px",
         position: "relative",
         height: "60px",
-        marginTop: "12px"
+        marginTop: "50px"
     }}
 >
 
@@ -158,8 +173,9 @@ maxWidth: "600px",
             transform:
                 "translateX(-50%)",
 
-            padding: "16px 40px",
-            fontSize: "22px",
+           padding: "32px 72px",
+
+fontSize: "48px",
             fontWeight: "bold",
 
             borderRadius: "999px",
@@ -180,17 +196,17 @@ maxWidth: "600px",
         }
         style={{
             position: "absolute",
-            right: 0,
+            right: -60,
 
-            width: "52px",
-            height: "52px",
+            width: "120px",
+            height: "120px",
 
             borderRadius: "999px",
             border: "none",
 
             background: "#d4af37",
 
-            fontSize: "24px",
+            fontSize: "48px",
             cursor: "pointer"
         }}
     >
