@@ -5,6 +5,8 @@ import { VitePWA }
     from "vite-plugin-pwa"
 // https://vite.dev/config/
 export default defineConfig({
+
+  base: "/Coin-Sort/",
   plugins: [
 
     react(),
@@ -29,12 +31,12 @@ export default defineConfig({
 
             icons: [
                 {
-                    src: "/Coin-Sort/public/icon-192.png",
+                    src: "/icon-192.png",
                     sizes: "1024x1024",
                     type: "image/png"
                 },
                 {
-                    src: "/Coin-Sort/public/icon-512.png",
+                    src: "/icon-512.png",
                     sizes: "1024x1024",
                     type: "image/png"
                 }
