@@ -27,7 +27,7 @@ export default defineConfig({
 
             display: "standalone",
 
-            start_url: "/",
+           start_url: "/Coin-Sort/",
 
           icons: [
     {
