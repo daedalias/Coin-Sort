@@ -3,7 +3,6 @@ import {
     useState
 } from "react"
 import "./App.css"
-import { PalettePreview } from "./components/PalettePreview"
 import { gameReducer } from "./game/gameReducer"
 import { createEmptyGameState } from "./game/createEmptyGameState"
 import { TubeView } from "./components/TubeView"

@@ -1,5 +1,4 @@
 import type { GameState } from "./GameState"
-import type { Coin } from "./Coin"
 
 export type GameAction =
     | { type: "DEAL" }
