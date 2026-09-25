@@ -30,12 +30,12 @@ export default defineConfig({
             icons: [
                 {
                     src: "/Coin-Sort/public/icon-192.png",
-                    sizes: "192x192",
+                    sizes: "1024x1024",
                     type: "image/png"
                 },
                 {
                     src: "/Coin-Sort/public/icon-512.png",
-                    sizes: "512x512",
+                    sizes: "1024x1024",
                     type: "image/png"
                 }
             ]
