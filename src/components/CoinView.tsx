@@ -24,7 +24,9 @@ transform:
 
 transition:
     "transform 0.15s ease",
-               width: "52px",
+               width: "100%",
+maxWidth: "60px",
+
 height: "14px",
 
                 background: color,

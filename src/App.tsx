@@ -59,7 +59,9 @@ return (
 
 <div
     style={{
-        width: "360px"
+        width: "95vw",
+maxWidth: "600px",
+
     }}
 >
 
@@ -136,7 +138,8 @@ return (
 
 <div
     style={{
-        width: "360px",
+        width: "95vw",
+maxWidth: "600px",
         position: "relative",
         height: "60px",
         marginTop: "12px"

@@ -24,7 +24,9 @@ export function TubeView(
        <div
     onClick={props.onClick}
             style={{
-                width: "60px",
+                width: "18vw",
+maxWidth: "72px",
+minWidth: "50px",
                 height: "160px",
 
 border: "3px solid #888",
