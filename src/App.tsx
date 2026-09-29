@@ -31,7 +31,7 @@ useEffect(() => {
 }, [state])
 const tubeWidth = 120
 
-const tubeHeight = 340
+const tubeHeight = 350
 
 
 return (

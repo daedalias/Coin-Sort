@@ -449,17 +449,34 @@ case "TAP_TUBE": {
         }
     }
 
-    let matchingCount =
-        destinationTube.coins.filter(
-            coin =>
-                coin.value === topValue
-        ).length
+   let matchingCount = 0
+
+for (
+    let i =
+        destinationTube.coins.length - 1;
+    i >= 0;
+    i--
+) {
+
+    if (
+        destinationTube.coins[i].value ===
+        topValue
+    ) {
+
+        matchingCount++
+
+    } else {
+
+        break
+    }
+}
 
     const spaceToTen =
-        Math.max(
-            0,
-            10 - matchingCount
-        )
+    Math.max(
+        0,
+        10 -
+        destinationTube.coins.length
+    )
 
     const moveCount =
         Math.min(
