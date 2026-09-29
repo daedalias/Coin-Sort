@@ -29,23 +29,35 @@ useEffect(() => {
     saveGame(state)
 
 }, [state])
-const tubeWidth = 120
+const viewportHeight =
+    window.innerHeight
 
-const tubeHeight = 350
+const reservedHeight =
+    377
+
+const tubeHeight =
+    Math.floor(
+        (viewportHeight - reservedHeight) / 4
+    )
+
+const tubeWidth =
+    Math.floor(
+        tubeHeight * 0.343
+    )
 
 
 return (
 
     <div
         style={{
-           minHeight: "100svh",
+           height: "100svh",
             background: "#2e2e2e",
             color: "white",
            display: "flex",
 flexDirection: "column",
 justifyContent: "flex-start",
 alignItems: "center",
-paddingTop: "32px",
+paddingTop: "0px",
             gap: "12px"
         }}
     >
@@ -236,11 +248,13 @@ fontSize: "48px",
 
         <div
             style={{
-                maxWidth: "1000px",
+                maxWidth: "90vw",
+width: "90vw",
+
                 margin: "0 auto",
                 background: "#2a2a2a",
                 borderRadius: "16px",
-                padding: "24px"
+                padding: "48px"
             }}
             onClick={e =>
                 e.stopPropagation()
@@ -259,29 +273,42 @@ fontSize: "48px",
                 }}
             >
 
-                <h2>
-                    🏆 Trophy Cabinet
-                </h2>
+                <h2
+    style={{
+        fontSize: "40px",
+        margin: 0
+    }}
+>
+    🏆 Trophy Cabinet
+</h2>
 
-                <button
-                    onClick={() =>
-                        setShowTrophies(
-                            false
-                        )
-                    }
-                >
-                    Close
-                </button>
+             <button
+    onClick={() =>
+        setShowTrophies(
+            false
+        )
+    }
+    style={{
+        fontSize: "24px",
+        padding: "12px 24px"
+    }}
+>
+    Close
+</button>
 
             </div>
 
             {state.trophies.length === 0 ? (
 
-                <p>
-                    Earn your first
-                    trophy by completing
-                    a 99 stack.
-                </p>
+            <p
+    style={{
+        fontSize: "28px"
+    }}
+>
+    Earn your first
+    trophy by completing
+    a 99 stack.
+</p>
 
             ) : (
 
@@ -289,7 +316,7 @@ fontSize: "48px",
                     style={{
                         display: "grid",
                         gridTemplateColumns:
-                            "repeat(auto-fill, minmax(220px, 1fr))",
+                            "repeat(auto-fill, minmax(320px, 1fr))",
                         gap: "12px"
                     }}
                 >

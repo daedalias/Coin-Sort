@@ -17,3 +17,7 @@ body,
 body {
   touch-action: manipulation;
 }
+html,
+body {
+  overscroll-behavior: none;
+}
