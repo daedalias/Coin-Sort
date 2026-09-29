@@ -54,50 +54,47 @@ function randomDealValue(
     state: GameState
 ): number {
 
-    const lowest =
-        lowestCoinOnBoard(state)
-
-    const highest =
-        highestCoinOnBoard(state)
-
-    const upperBound =
-        Math.max(
-            lowest,
-            highest - 1
+    const valuesOnBoard =
+        state.tubes.flatMap(
+            tube =>
+                tube.coins.map(
+                    coin => coin.value
+                )
         )
 
     if (
-        Math.random() < 0.7
+        valuesOnBoard.length === 0
     ) {
-
-        const focusedUpper =
-            Math.min(
-                upperBound,
-                lowest + 2
-            )
-
-        return (
-            Math.floor(
-                Math.random() *
-                (
-                    focusedUpper -
-                    lowest +
-                    1
-                )
-            ) + lowest
-        )
+        return 1
     }
 
-    return (
+    const highest =
+        Math.max(
+            ...valuesOnBoard
+        )
+
+    const candidates =
+        valuesOnBoard.filter(
+            value =>
+                value < highest
+        )
+
+    if (
+        candidates.length === 0
+    ) {
+
+        return highest
+    }
+
+    const uniqueCandidates =
+        [...new Set(candidates)]
+
+    return uniqueCandidates[
         Math.floor(
             Math.random() *
-            (
-                upperBound -
-                lowest +
-                1
-            )
-        ) + lowest
-    )
+            uniqueCandidates.length
+        )
+    ]
 }
 export function pickupCount(
     state: GameState,

@@ -41,7 +41,10 @@ if (saved) {
             saved.trophies ?? [],
 
         nextTrophyNumber:
-            saved.nextTrophyNumber ?? 1
+    saved.nextTrophyNumber ?? 1,
+
+exportVersion:
+    saved.exportVersion ?? 1
     }
 }
 
@@ -72,6 +75,8 @@ return {
 
     trophies: [],
 
-    nextTrophyNumber: 1
+    nextTrophyNumber: 1,
+
+exportVersion: 1
 }
 }

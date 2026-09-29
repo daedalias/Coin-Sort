@@ -1,6 +1,7 @@
 import {
     useReducer,
-    useState
+    useState,
+    useRef
 } from "react"
 import "./App.css"
 import { gameReducer } from "./game/gameReducer"
@@ -24,6 +25,8 @@ function App() {
     showTrophies,
     setShowTrophies
 ] = useState(false)
+const importInputRef =
+    useRef<HTMLInputElement>(null)
 useEffect(() => {
 
     saveGame(state)
@@ -33,7 +36,7 @@ const viewportHeight =
     window.innerHeight
 
 const reservedHeight =
-    410
+    430
 
 const tubeHeight =
     Math.floor(
@@ -44,7 +47,118 @@ const tubeWidth =
     Math.floor(
         tubeHeight * 0.343
     )
+function exportProgress() {
 
+    const progress = {
+
+        exportVersion:
+            state.exportVersion,
+
+        level:
+            state.level,
+
+        xp:
+            state.xp,
+
+        lifetimeXp:
+            state.lifetimeXp,
+
+        currentCheckpoint:
+            state.currentCheckpoint,
+
+        trophies:
+            state.trophies,
+
+        nextTrophyNumber:
+            state.nextTrophyNumber
+    }
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    progress,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        )
+
+    const url =
+        URL.createObjectURL(
+            blob
+        )
+
+    const link =
+        document.createElement(
+            "a"
+        )
+
+    link.href = url
+
+    link.download =
+        "coin-sort-progress.json"
+
+    link.click()
+
+    URL.revokeObjectURL(
+        url
+    )
+}
+
+async function importProgress(
+    event:
+    React.ChangeEvent<HTMLInputElement>
+) {
+
+    const file =
+        event.target.files?.[0]
+
+    if (!file) {
+        return
+    }
+
+    const text =
+        await file.text()
+
+    const progress =
+        JSON.parse(text)
+
+    const savedGame =
+        createEmptyGameState()
+
+    dispatch({
+
+        type: "LOAD",
+
+        state: {
+
+            ...savedGame,
+
+            level:
+                progress.level ?? 1,
+
+            xp:
+                progress.xp ?? 0,
+
+            lifetimeXp:
+                progress.lifetimeXp ?? 0,
+
+            currentCheckpoint:
+                progress.currentCheckpoint ?? 1,
+
+            trophies:
+                progress.trophies ?? [],
+
+            nextTrophyNumber:
+                progress.nextTrophyNumber ?? 1
+        }
+    })
+}
 
 return (
 
@@ -62,19 +176,6 @@ paddingTop: "0px",
         }}
     >
 
- <div
-    style={{
-        width: "100%",
-       
-        display: "flex",
-        justifyContent: "flex-end",
-        marginBottom: "8px"
-    }}
->
-
-</div>
-          
-
 <div
     style={{
       width: "100%",
@@ -83,32 +184,62 @@ maxWidth: "700px",
     }}
 >
 
-   <div
+<div
     style={{
         display: "flex",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
+        alignItems: "center",
         width: "100%",
         marginBottom: "32px"
     }}
 >
 
-        <div
+    <div
+        style={{
+            display: "flex",
+            gap: "12px"
+        }}
+    >
+
+        <button
+            onClick={exportProgress}
             style={{
-                fontSize: "40px",
-fontWeight: "bold",
-                textAlign: "right"
+                fontSize: "24px",
+                padding: "12px 24px"
             }}
         >
+            Export
+        </button>
 
-           <div>
-    Lv. {state.level}
-    {" • "}
-    XP: {state.xp} / {xpNeededForLevel(state.level)}
-</div>
-
-        </div>
+        <button
+            onClick={() =>
+                importInputRef.current?.click()
+            }
+            style={{
+                fontSize: "24px",
+                padding: "12px 24px"
+            }}
+        >
+            Import
+        </button>
 
     </div>
+
+    <div
+        style={{
+            fontSize: "40px",
+            fontWeight: "bold",
+            textAlign: "right"
+        }}
+    >
+        <div>
+            Lv. {state.level}
+            {" • "}
+            XP: {state.xp} / {xpNeededForLevel(state.level)}
+        </div>
+    </div>
+
+</div>
 
    <div
     style={{

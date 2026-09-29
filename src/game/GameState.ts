@@ -7,9 +7,9 @@ export interface GameState {
 
     level: number
 
-xp: number
+    xp: number
 
-lifetimeXp: number
+    lifetimeXp: number
 
     currentCheckpoint: number
 
@@ -22,4 +22,6 @@ lifetimeXp: number
     trophies: Trophy[]
 
     nextTrophyNumber: number
+
+    exportVersion: number
 }
