@@ -33,7 +33,7 @@ const viewportHeight =
     window.innerHeight
 
 const reservedHeight =
-    390
+    410
 
 const tubeHeight =
     Math.floor(
