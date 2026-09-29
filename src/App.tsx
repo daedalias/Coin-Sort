@@ -222,7 +222,15 @@ maxWidth: "700px",
         >
             Import
         </button>
-
+<input
+    ref={importInputRef}
+    type="file"
+    accept=".json"
+    style={{
+        display: "none"
+    }}
+    onChange={importProgress}
+/>
     </div>
 
     <div

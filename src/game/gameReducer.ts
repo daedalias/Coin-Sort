@@ -6,28 +6,6 @@ export type GameAction =
     | { type: "RESTART" }
     | { type: "LOAD"; state: GameState }
 
-function lowestCoinOnBoard(
-    state: GameState
-): number {
-
-    const values =
-        state.tubes.flatMap(
-            tube =>
-                tube.coins.map(
-                    coin => coin.value
-                )
-        )
-
-    if (
-        values.length === 0
-    ) {
-
-        return 1
-    }
-
-    return Math.min(...values)
-}
-
 function highestCoinOnBoard(
     state: GameState
 ): number {
