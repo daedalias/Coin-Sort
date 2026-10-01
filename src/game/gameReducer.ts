@@ -65,14 +65,48 @@ function randomDealValue(
     }
 
     const uniqueCandidates =
-        [...new Set(candidates)]
+    [...new Set(candidates)]
 
-    return uniqueCandidates[
-        Math.floor(
-            Math.random() *
-            uniqueCandidates.length
+const weightedPool: number[] = []
+
+const highest =
+    highestCoinOnBoard(
+        state
+    )
+
+const milestoneStart =
+    Math.floor(
+        (highest - 1) / 10
+    ) * 10 + 1
+
+for (
+    const value
+    of uniqueCandidates
+) {
+
+    if (
+        value < milestoneStart
+    ) {
+
+        weightedPool.push(
+            value,
+            value
         )
-    ]
+
+    } else {
+
+        weightedPool.push(
+            value
+        )
+    }
+}
+
+return weightedPool[
+    Math.floor(
+        Math.random() *
+        weightedPool.length
+    )
+]
 }
 export function pickupCount(
     state: GameState,
