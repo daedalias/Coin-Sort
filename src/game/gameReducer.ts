@@ -51,27 +51,9 @@ function randomDealValue(
             ...valuesOnBoard
         )
 
-    const candidates =
-        valuesOnBoard.filter(
-            value =>
-                value < highest
-        )
-
-    if (
-        candidates.length === 0
-    ) {
-
-        return highest
-    }
-
-    const uniqueCandidates =
-    [...new Set(candidates)]
-
-const weightedPool: number[] = []
-
-const highest =
-    highestCoinOnBoard(
-        state
+    const lowest =
+    Math.min(
+        ...valuesOnBoard
     )
 
 const milestoneStart =
@@ -79,9 +61,12 @@ const milestoneStart =
         (highest - 1) / 10
     ) * 10 + 1
 
+const weightedPool: number[] = []
+
 for (
-    const value
-    of uniqueCandidates
+    let value = lowest;
+    value < highest;
+    value++
 ) {
 
     if (
@@ -99,6 +84,13 @@ for (
             value
         )
     }
+}
+
+if (
+    weightedPool.length === 0
+) {
+
+    return highest
 }
 
 return weightedPool[

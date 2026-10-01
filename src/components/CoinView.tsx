@@ -24,8 +24,9 @@ const color =
             style={{
 transform:
     props.lifted
-        ? "translateY(-10px)"
-        : "translateY(0)",
+        ? "translateY(-10px) scale(1.08)"
+        : "translateY(0) scaleY(0.96)",
+
 
 transition:
     "transform 0.15s ease",
@@ -37,6 +38,12 @@ height: `${props.coinHeight}px`,
                 background: color,
 
                 borderRadius: "8px",
+
+boxShadow:
+    props.lifted
+        ? "0 0 18px rgba(255,255,255,0.6)"
+        : "0 0 0 rgba(255,255,255,0)",
+
 
                 display: "flex",
 
