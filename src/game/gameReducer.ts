@@ -598,7 +598,9 @@ nextState.trophies.push({
         )
 
     nextState.currentCheckpoint = 1
+nextState.lowestCoin = 1
 
+nextState.highestCoin = 1
     nextState.selectedTubeIndex = null
 
     nextState.dealCount = 0
@@ -619,9 +621,30 @@ nextState.trophies.push({
             value: topValue + 1
         }
     ]
+    nextState.highestCoin =
+    Math.max(
+        nextState.highestCoin,
+        topValue + 1
+    )
 }
     }
+const valuesOnBoard =
+    nextState.tubes.flatMap(
+        tube =>
+            tube.coins.map(
+                coin => coin.value
+            )
+    )
 
+if (
+    valuesOnBoard.length > 0
+) {
+
+    nextState.lowestCoin =
+        Math.min(
+            ...valuesOnBoard
+        )
+}
     return nextState
 }
 

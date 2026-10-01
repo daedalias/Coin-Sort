@@ -11,7 +11,11 @@ export interface GameState {
 
     lifetimeXp: number
 
-    currentCheckpoint: number
+       currentCheckpoint: number
+
+    lowestCoin: number
+
+    highestCoin: number
 
     selectedTubeIndex: number | null
 

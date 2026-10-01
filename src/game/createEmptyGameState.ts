@@ -27,7 +27,13 @@ if (saved) {
             saved.lifetimeXp ?? 0,
 
         currentCheckpoint:
-            saved.currentCheckpoint ?? 1,
+    saved.currentCheckpoint ?? 1,
+
+lowestCoin:
+    saved.lowestCoin ?? 1,
+
+highestCoin:
+    saved.highestCoin ?? 1,
 
         selectedTubeIndex: null,
 
@@ -67,6 +73,9 @@ return {
 
     currentCheckpoint: 1,
 
+lowestCoin: 1,
+
+highestCoin: 1,
     selectedTubeIndex: null,
 
     dealCount: 0,

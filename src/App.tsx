@@ -51,27 +51,33 @@ function exportProgress() {
 
     const progress = {
 
-        exportVersion:
-            state.exportVersion,
+    exportVersion:
+        state.exportVersion,
 
-        level:
-            state.level,
+    level:
+        state.level,
 
-        xp:
-            state.xp,
+    xp:
+        state.xp,
 
-        lifetimeXp:
-            state.lifetimeXp,
+    lifetimeXp:
+        state.lifetimeXp,
 
-        currentCheckpoint:
-            state.currentCheckpoint,
+    currentCheckpoint:
+        state.currentCheckpoint,
 
-        trophies:
-            state.trophies,
+    lowestCoin:
+        state.lowestCoin,
 
-        nextTrophyNumber:
-            state.nextTrophyNumber
-    }
+    highestCoin:
+        state.highestCoin,
+
+    trophies:
+        state.trophies,
+
+    nextTrophyNumber:
+        state.nextTrophyNumber
+}
 
     const blob =
         new Blob(
@@ -130,33 +136,121 @@ async function importProgress(
 
     const savedGame =
         createEmptyGameState()
+const lowestCoin =
+    progress.lowestCoin ?? 1
 
+const highestCoin =
+    progress.highestCoin ?? 1
+
+const milestoneStart =
+    Math.floor(
+        (highestCoin - 1) / 10
+    ) * 10 + 1
+
+const generatedTubes =
+    Array.from(
+        { length: 20 },
+        (_, index) => {
+
+            const coins = []
+
+            const count =
+                Math.floor(
+                    Math.random() * 4
+                ) + 2
+
+            for (
+                let i = 0;
+                i < count;
+                i++
+            ) {
+
+                const weightedPool: number[] = []
+
+                for (
+                    let value = lowestCoin;
+                    value < highestCoin;
+                    value++
+                ) {
+
+                    if (
+                        value < milestoneStart
+                    ) {
+
+                        weightedPool.push(
+                            value,
+                            value
+                        )
+
+                    } else {
+
+                        weightedPool.push(
+                            value
+                        )
+                    }
+                }
+
+                const value =
+                    weightedPool[
+                        Math.floor(
+                            Math.random() *
+                            weightedPool.length
+                        )
+                    ] ?? lowestCoin
+
+                coins.push({
+
+                    id:
+                        crypto.randomUUID(),
+
+                    value
+                })
+            }
+
+            return {
+
+                id:
+                    `tube-${index}`,
+
+                coins
+            }
+        }
+    )
     dispatch({
 
         type: "LOAD",
 
         state: {
 
-            ...savedGame,
+    ...savedGame,
 
-            level:
-                progress.level ?? 1,
+    tubes:
+        generatedTubes,
 
-            xp:
-                progress.xp ?? 0,
+    level:
+        progress.level ?? 1,
 
-            lifetimeXp:
-                progress.lifetimeXp ?? 0,
+    xp:
+        progress.xp ?? 0,
 
-            currentCheckpoint:
-                progress.currentCheckpoint ?? 1,
+    lifetimeXp:
+        progress.lifetimeXp ?? 0,
 
-            trophies:
-                progress.trophies ?? [],
+    currentCheckpoint:
+        progress.currentCheckpoint ?? 1,
 
-            nextTrophyNumber:
-                progress.nextTrophyNumber ?? 1
-        }
+    lowestCoin:
+        progress.lowestCoin ?? 1,
+
+    highestCoin:
+        progress.highestCoin ?? 1,
+
+    trophies:
+        progress.trophies ?? [],
+
+    nextTrophyNumber:
+        progress.nextTrophyNumber ?? 1
+}
     })
 }
 
